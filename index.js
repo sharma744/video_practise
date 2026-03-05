@@ -26,6 +26,7 @@ io.on("connection",(socket)=>{
           io.to(targetId).emit("ice-candidates",candidate);
     })
 })
-server.listen(3000,()=>{
-    console.log("server is running");
-})
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
