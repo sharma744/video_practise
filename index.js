@@ -10,7 +10,13 @@ const server = http.createServer(app);
 app.use(express.static(path.join(__dirname, "dist")));
 
 // Socket.io setup
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, {
+  cors: {
+    origin: ["https://video-practise-1.onrender.com"], // allow your frontend
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
 io.on("connection", (socket) => {
   console.log("Socket connected:", socket.id);
