@@ -5,8 +5,8 @@ let path=require("path");
 let app=express();
 app.set("view engine","ejs");
 app.use(express.static(path.join(__dirname,"dist")));
-app.get("/", (req, res) => {
-    res.render("index");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/index.html"));
 });
 let server=http.createServer(app)
 let io=new Server(server,{
