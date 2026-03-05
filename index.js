@@ -2,14 +2,18 @@ let express=require("express");
 let http=require("http");
 let {Server}=require("socket.io");
 let path=require("path");
-let io=new Server(http.createServer(express()),{
+let app=express();
+app.set("view engine","ejs");
+app.use(express.static(path.join(__dirname,"dist")));
+app.get("/", (req, res) => {
+    res.render("index");
+});
+let server=http.createServer(app)
+let io=new Server(server,{
     cors: {
     origin: "*",
   }
 });
-let app=express();
-app.set("view engine","ejs");
-app.use(express.static(path.join(__dirname,"dist")));
 
 io.on("connection",(socket)=>{
     socket.on("offer",(remoteoffer)=>{
@@ -22,6 +26,6 @@ io.on("connection",(socket)=>{
           io.to(targetId).emit("ice-candidates",candidate);
     })
 })
-io.listen(3000,()=>{
+server.listen(3000,()=>{
     console.log("server is running");
 })
