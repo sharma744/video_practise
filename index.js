@@ -1,14 +1,15 @@
 let express=require("express");
 let http=require("http");
 let {Server}=require("socket.io");
+let path=require("path");
 let io=new Server(http.createServer(express()),{
     cors: {
     origin: "*",
   }
 });
 let app=express();
-app.use("view engine","ejs");
-app.use(express.static(path.join(__dirname, "dist")));
+app.set("view engine","ejs");
+app.use(express.static(path.join(__dirname,"dist")));
 
 io.on("connection",(socket)=>{
     socket.on("offer",(remoteoffer)=>{
