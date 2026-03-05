@@ -4,7 +4,7 @@ let {Server}=require("socket.io");
 let path=require("path");
 let app=express();
 app.set("view engine","ejs");
-app.use(express.static(path.join(__dirname,"dist")));
+app.use(express.static(path.join(__dirname,"dist_1")));
 app.get("/", (req, res) => {
     res.render("index");
 });
